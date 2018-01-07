@@ -1,0 +1,4 @@
+
+# 03fd:0008 Xilinx, Inc. Platform Cable USB II
+
+ACTION=="add", SUBSYSTEMS=="usb", ATTRS{idVendor}=="03fd", MODE="666"
