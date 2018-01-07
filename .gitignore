@@ -1,0 +1,7 @@
+
+# Directories ...
+doc/
+usb-driver/
+
+# Backup files
+*~
