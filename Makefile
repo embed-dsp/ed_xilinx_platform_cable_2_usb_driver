@@ -104,7 +104,7 @@ install:
 	sed -e 's/BUS/SUBSYSTEMS/' -e 's/SYSFS/ATTRS/g' -e 's/TEMPNODE/tempnode/' $(XILINX_XUSB)/xusbdfwu.rules > /etc/udev/rules.d/xusbdfwu.rules
 
 	# Install usb-driver udev rules.
-	cp udev/libusb-driver.rules /etc/udev/rules.d
+	cp etc/udev/rules.d/libusb-driver.rules /etc/udev/rules.d
 
 	# Reload udev rules.
 	udevadm control --reload-rules
