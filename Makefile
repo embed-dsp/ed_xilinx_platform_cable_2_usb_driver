@@ -15,6 +15,7 @@ PACKAGE_NAME = usb-driver
 PACKAGE_VERSION = master
 PACKAGE = $(PACKAGE_NAME)-$(PACKAGE_VERSION)
 
+# Build for 32-bit or 64-bit (Default)
 ifeq ($(M),)
 	M = 64
 endif
