@@ -62,7 +62,9 @@ XILINX = /opt/Xilinx/14.7
 ```bash
 # Checkout specific version and rebuild configure.
 make prepare
+```
 
+```bash
 # Compile 64-bit version (Default: M=64)
 make compile
 make compile M=64
@@ -127,8 +129,8 @@ sudo make uninstall M=32
 ## Status LED
 
 If everything is working as expected after installing the USB driver then the
-Status LED on the Xilinx Platform Cable II unit should light up when connected 
-with a USB cable to the computer.
+Status LED on the **Xilinx Platform Cable II** unit should light up when 
+connected with a USB cable to the computer.
 
 ## Kernel Message Buffer
 
@@ -184,10 +186,12 @@ Bus 001 Device 012: ID 03fd:0013 Xilinx, Inc.
 
 # Usage
 
+## Start Xilinx impact tool
+
 To use this library you have to preload the library before starting the
 Xilinx **impact** tool.
 
-## 64-bit Installation
+### 64-bit Installation
 
 Start **impact** like this:
 ```bash
@@ -200,7 +204,7 @@ export LD_PRELOAD=/usr/local/lib64/libusb-driver.so
 impact
 ```
 
-## 32-bit Installation
+### 32-bit Installation
 
 Start **impact** like this:
 ```bash
@@ -211,6 +215,15 @@ or like this:
 ```bash
 export LD_PRELOAD=/usr/local/lib/libusb-driver.so
 impact
+```
+
+## Clean Cable Lock
+
+If you get the message '**The cable is being used by another application.**'
+from impact, try running the following command:
+
+```bash
+impact -batch impact/clean_cable_lock.cmd
 ```
 
 
