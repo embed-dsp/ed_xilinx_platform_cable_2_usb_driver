@@ -10,17 +10,20 @@
 # Xilinx installation directory.
 XILINX = /opt/Xilinx/14.7
 
-# Package.
+# USB Driver.
 PACKAGE_NAME = usb-driver
 PACKAGE_VERSION = master
 PACKAGE = $(PACKAGE_NAME)-$(PACKAGE_VERSION)
+
+# ==============================================================================
+
+# Compiler.
+CC = /usr/bin/gcc
 
 # Build for 32-bit or 64-bit (Default)
 ifeq ($(M),)
 	M = 64
 endif
-
-CC = /usr/bin/gcc
 
 ifeq ($(M), 64)
 	XILINX_XUSB = $(XILINX)/ISE_DS/ISE/bin/lin64
@@ -42,6 +45,7 @@ OBJ = usb-driver.o xpcu.o parport.o config.o jtagmon.o
 
 
 all:
+	@echo "XILINX_XUSB = $(XILINX_XUSB)"
 	@echo ""
 	@echo "## Get Source Code"
 	@echo "make clone"

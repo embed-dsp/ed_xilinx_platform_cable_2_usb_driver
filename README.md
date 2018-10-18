@@ -1,7 +1,7 @@
 
 # Compile and Install of Xilinx Platform Cable II USB Driver for Linux
 
-When using XILINX JTAG software like Impact, Chipscope and XMD on Linux, 
+When using XILINX JTAG software like **iMPACT**, **ChipScope** and **XMD** on Linux, 
 the proprietary kernel module **windrvr** from **Jungo** is needed to access the 
 parallel- or usb-cable.
 As this module does not work with current linux kernel versions (> **2.6.18**) 
@@ -10,49 +10,41 @@ tools to access the JTAG cable without the need for a proprietary kernel module.
 This is described [here](http://www.rmdir.de/~michael/xilinx).
 
 
-# Prerequisites
-
-## Fedora-27 64-bit | Fedora-28 64-bit
-```bash
-dnf install gcc-c++
-
-# Used by /etc/udev/rules.d/xusbdfwu.rules to download firmware to USB device.
-dnf install fxload
-
-# For building 64-bit version of the Xilinx Platform Cable II USB Driver
-dnf install libusb
-dnf install libusb-devel
-
-# For building 32-bit version of the Xilinx Platform Cable II USB Driver
-dnf install libusb.i686
-dnf install libusb-devel.i686
-```
-
-
 # Get Source Code
 
 ## ed_xilinx_platform_cable_2_usb_driver
+Get the code for this component to a local directory on your PC.
+
 ```bash
 git clone https://github.com/embed-dsp/ed_xilinx_platform_cable_2_usb_driver.git
 ```
 
 ## USB Driver
+Get the code for the USB Driver.
+
 ```bash
 # Enter the ed_xilinx_platform_cable_2_usb_driver directory.
 cd ed_xilinx_platform_cable_2_usb_driver
+```
 
-# FIXME: Only first time
+If this is the first time the USB Driver is built, then ...
+```bash
 # Clone the USB Driver git repository.
 make clone
+```
 
-# FIXME: Any other time
+Otherwise just pull the latest updates ...
+```bash
 # Pull latest updates from the USB Driver git repository.
 make pull
 ```
 
+Edit the **Makefile** for selecting the Xilinx installation directory.
 ```bash
-# Edit the Makefile for selecting the Xilinx installation directory.
+# Edit Makefile ...
 vim Makefile
+
+# ... and set path to Xilinx installation directory
 XILINX = /opt/Xilinx/14.7
 ```
 
@@ -60,7 +52,7 @@ XILINX = /opt/Xilinx/14.7
 # Build
 
 ```bash
-# Checkout specific version and rebuild configure.
+# Checkout specific version of the USB Driver and rebuild configure.
 make prepare
 ```
 
@@ -68,7 +60,9 @@ make prepare
 # Compile 64-bit version (Default: M=64)
 make compile
 make compile M=64
+```
 
+```bash
 # Compile 32-bit version.
 make compile M=32
 ```
@@ -80,7 +74,9 @@ make compile M=32
 # Install 64-bit build products (Default: M=64)
 sudo make install
 sudo make install M=64
+```
 
+```bash
 # Install 32-bit build products.
 sudo make install M=32
 ```
@@ -88,14 +84,16 @@ sudo make install M=32
 The build products are installed in the following locations:
 
 ```bash
-usr/
+/usr/
 └── local/
     ├── lib64/
     |   └── libusb-driver.so    # 64-bit USB driver
     └── lib/
         └── libusb-driver.so    # 32-bit USB driver
+```
 
-usr/
+```bash
+/usr/
 └── share/                      # Xilinx firmware
     ├── xusbdfwu.hex
     ├── xusb_emb.hex
@@ -104,8 +102,10 @@ usr/
     ├── xusb_xpr.hex
     ├── xusb_xse.hex
     └── xusb_xup.hex
+```
 
-etc/
+```bash
+/etc/
 └── udev/
     └── rules.d/
         ├── libusb-driver.rules # usb-driver udev rules
@@ -118,7 +118,9 @@ etc/
 # Uninstall 64-bit build products (Default: M=64)
 sudo make uninstall
 sudo make uninstall M=64
+```
 
+```bash
 # Uninstall 32-bit build products.
 sudo make uninstall M=32
 ```
@@ -227,11 +229,31 @@ impact -batch impact/clean_cable_lock.cmd
 ```
 
 
-# Notes
+# Prerequisites
 
-This has been testes with the following Linux distributions and compilers:
-* `Fedora-27 (64-bit)`
-    * `gcc-7.2.1`
-    * `gcc-7.3.1`
-* `Fedora-28 (64-bit)`
-    * `gcc-8.1.1`
+## Fedora-27 64-bit | Fedora-28 64-bit
+```bash
+# ...
+sudo dnf install gcc-c++
+
+# Used by /etc/udev/rules.d/xusbdfwu.rules to download firmware to USB device.
+sudo dnf install fxload
+
+# For building 64-bit version of the Xilinx Platform Cable II USB Driver
+sudo dnf install libusb
+sudo dnf install libusb-devel
+
+# For building 32-bit version of the Xilinx Platform Cable II USB Driver
+sudo dnf install libusb.i686
+sudo dnf install libusb-devel.i686
+```
+
+
+# Tested System Configurations
+
+The following system configurations have been tested.
+
+System  | M=32              | M=64
+--------|-------------------|-------------------
+linux   | Fedora-27 64-bit  | Fedora-27 64-bit
+linux   | Fedora-28 64-bit  | Fedora-28 64-bit
